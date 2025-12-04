@@ -2096,6 +2096,8 @@
         }
         
         function createParticles(matches) {
+            const canvasRect = canvas.getBoundingClientRect();
+            
             matches.forEach(match => {
                 if (!gameState.grid[match.row] || !gameState.grid[match.row][match.col]) return;
                 
@@ -2106,10 +2108,12 @@
                     
                     const x = match.col * CONFIG.tileSize + CONFIG.padding + CONFIG.tileSize / 2 + 10;
                     const y = match.row * CONFIG.tileSize + CONFIG.padding + CONFIG.tileSize / 2 + 10;
+                    const screenX = canvasRect.left + x;
+                    const screenY = canvasRect.top + y;
                     
-                    particle.style.left = canvas.offsetLeft + x + 'px';
-                    particle.style.top = canvas.offsetTop + y + 'px';
-                    particle.style.position = 'absolute';
+                    particle.style.left = screenX + 'px';
+                    particle.style.top = screenY + 'px';
+                    particle.style.position = 'fixed';
                     
                     const angle = (Math.random() * 360) * Math.PI / 180;
                     const distance = 55 + Math.random() * 55;
